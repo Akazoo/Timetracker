@@ -170,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
             );
     }
 
-
     // Funkcje strony
     function renderTask(taskId, title, description, status) {
 
@@ -194,8 +193,11 @@ document.addEventListener('DOMContentLoaded', function () {
       <form>
       </form>
     </div> `
-
-        document.querySelector("main").append(section);
+        if (status === 'open') {
+            document.querySelector("main").firstElementChild.after(section)
+        } else {
+            document.querySelector("main").append(section);
+        }
 
         // Dodawanie przycisku gdy open
 
@@ -318,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         }
     }
-
 
     // Dodatkowe funkcje
     function timeChanger(numberM) {
