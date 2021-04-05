@@ -232,12 +232,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Usuwanie tasku
 
-        deleteButton.addEventListener("click", evt => {
+        deleteButton.addEventListener("click", () => {
             apiDeleteTask(taskId);
             section.remove();
         });
 
-        // Dodanie formularza gdy open
+        // Dodanie formularza gdy open/Estetyka gdy closed
 
         const addOperationForm = section.querySelector("form");
 
@@ -249,6 +249,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <button class="btn btn-info">Add</button>
           </div>
         </div>`;
+        } else {
+            addOperationForm.parentElement.remove();
         }
 
         // Dodawanie operacji
@@ -265,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Zakończenie tasku
 
-        finishButton.addEventListener("click", ev => {
+        finishButton.addEventListener("click", () => {
             // dziala ale moze lepiej (dodaje na dol-niby dobrze)
             section.remove();
             apiUpdateTask(taskId, title, description, "close").then(response => {
@@ -302,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Dodanie czasu 15m
 
-            li.lastElementChild.children[0].addEventListener("click", evt => {
+            li.lastElementChild.children[0].addEventListener("click", () => {
                 apiUpdateOperation(operationId, operationDescription, timeSpent + 15).then(response => {
                     li.firstElementChild.firstElementChild.innerText = timeChanger(response.data.timeSpent);
                     timeSpent = response.data.timeSpent;
@@ -311,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Dodanie czasu 1h
 
-            li.lastElementChild.children[1].addEventListener("click", evt => {
+            li.lastElementChild.children[1].addEventListener("click", () => {
                 apiUpdateOperation(operationId, operationDescription, timeSpent + 60).then(response => {
                     li.firstElementChild.firstElementChild.innerText = timeChanger(response.data.timeSpent);
                     timeSpent = response.data.timeSpent;
@@ -320,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Usuwanie operacji
 
-            li.lastElementChild.children[2].addEventListener("click", evt => {
+            li.lastElementChild.children[2].addEventListener("click", () => {
                 apiDeleteOperation(operationId);
                 li.remove();
             })
