@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Funkcje API
     function apiListTasks() {
+
         return fetch(
             apihost + '/api/tasks',
             {
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     return resp.json();
                 }
-            )
+            );
     }
 
     function apiCreateTask(title, description) {
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 return resp.json();
             }
-        )
+        );
     }
 
     function apiDeleteTask(taskId) {
@@ -63,10 +64,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 return resp.json();
             }
-        )
+        );
     }
 
     function apiUpdateTask(taskId, title, description, status) {
+
         return fetch(
             apihost + '/api/tasks/' + taskId,
             {
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function apiCreateOperationForTask(taskId, description) {
+
         return fetch(
             apihost + '/api/tasks/' + taskId + '/operations',
             {
@@ -129,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function apiUpdateOperation(operationId, description, timeSpent) {
+
         return fetch(
             apihost + '/api/operations/' + operationId,
             {
@@ -147,10 +151,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     return resp.json();
                 }
             );
-
     }
 
     function apiDeleteOperation(operationId) {
+
         return fetch(
             apihost + '/api/operations/' + operationId,
             {
@@ -192,7 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="card-body">
       <form>
       </form>
-    </div> `
+    </div> `;
+
+        // Dodawanie do drzewa w zależności od statusu
+
         if (status === 'open') {
             document.querySelector("main").firstElementChild.after(section)
         } else {
@@ -208,11 +215,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             finishButton.className = 'btn btn-dark btn-sm js-task-open-only';
             finishButton.innerText = 'Finish';
-
             section.firstElementChild.lastElementChild.insertBefore(finishButton, deleteButton);
         }
 
-        // Wypelnianie task operacjami
+        // Wypełnianie tasku operacjami
 
         const ul = section.querySelector("ul");
         apiListOperationsForTask(taskId).then(
@@ -255,9 +261,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     renderOperation(ul, operation.data.id, status, operation.data.description, operation.data.timeSpent);
                 });
             input.value = "";
-        })
+        });
 
-        // Zakanczanie tasku
+        // Zakończenie tasku
 
         finishButton.addEventListener("click", ev => {
             // dziala ale moze lepiej (dodaje na dol-niby dobrze)
@@ -265,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
             apiUpdateTask(taskId, title, description, "close").then(response => {
                 renderTask(response.data.id, response.data.title, response.data.description, response.data.status)
             });
-        })
+        });
 
     }
 
@@ -285,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         operationsList.appendChild(li);
 
-        // Dodanie przycisku  i akcji gdy open
+        // Dodanie przycisku i akcji gdy open
 
         if (status === 'open') {
             li.lastElementChild.innerHTML = `
@@ -339,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function start() {
 
-        //pierwsze ladowanie drzewa
+        // Pierwsze ładowanie drzewa
 
         apiListTasks().then(
             function (response) {
@@ -351,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         );
 
-        //tworzenie tasku
+        // Tworzenie tasku
 
         const taskForm = document.querySelector(".js-task-adding-form");
         taskForm.addEventListener("submit", evt => {
@@ -364,9 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             inputs[0].value = "";
             inputs[1].value = "";
-            alert("Task created.");
         });
-
     }
 
     // Core
