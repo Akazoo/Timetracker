@@ -1,4 +1,2 @@
 # ToDo App
-Aplikacja pozwalająca zarządzać listą zadań.
-
-
+(Project 4) ToDo App.
